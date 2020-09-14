@@ -1,0 +1,108 @@
+.loginFrame{
+  width: 100%;
+  height: 100%;
+  background: url(../../assets/loginbkd.jpg);
+  background-position: center 0;
+  background-repeat: no-repeat;
+  background-attachment:fixed;
+  background-size: 100% 100%;
+  position: relative;
+  .systemName{
+    width: 100%;
+    height: 62px;
+    line-height: 62px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-250px);
+    font-family: '华文行楷';
+    font-size: 32px;
+    text-align: center;
+  }
+  .formContainer{
+    width: 300px;
+    min-height: 350px;
+    background-color: #e6e6e6;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 7px;
+    transform: translate(-50%,-50%);
+
+    .loginChoice{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      border-radius: 7px 7px 0 0;
+
+      span:first-child{
+        border-radius: 7px 0 0 0;
+      }
+      span:last-child{
+        border-radius: 0 7px 0 0;
+      }
+      span{
+        display: inline-block;
+        height: 35px;
+        font-size: 15px;
+        // font-weight: bold;
+        line-height: 35px;
+        color: black;
+        width: 50%;
+        text-align: center;
+        cursor: pointer;
+      }
+      .active{
+        background-color: #2d8cf0;
+        color: #fff;
+      }
+    }
+    .pswChoice{
+      width: 100%;
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      .ivu-checkbox-wrapper{
+        margin-left: 20px;
+      }
+      .forgetPsw{
+        padding-right: 20px;
+        cursor: pointer;
+      }
+    }
+    .loginForm{
+       padding: 5px;
+       .ivu-form-item{
+         margin-top: 15px;
+         margin-bottom: 0;
+         .ivu-input-group-append, .ivu-input-group-prepend{
+           font-size: 18px;
+         }
+         .ivu-input{
+           height: 38px;
+           font-size: 14px;
+         }
+         .ivu-select-prefix{
+           display: inline-block;
+           width: 33px;
+           height: 38px;
+           text-align: center;
+           border-right: 1px solid #dcdee2;
+           i{
+             padding:10px 4px 0 0;
+           }
+         }
+         .ivu-select-single .ivu-select-selection{
+           height: 38px;
+         }
+        .ivu-select-single .ivu-select-selection .ivu-select-placeholder, .ivu-select-single .ivu-select-selection .ivu-select-selected-value{
+           height: 38px;
+           line-height: 38px;
+         }
+         .ivu-btn-primary{
+           width: 290px;
+         }
+       }
+    }
+  }
+}
