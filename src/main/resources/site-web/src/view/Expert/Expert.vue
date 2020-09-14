@@ -1,12 +1,13 @@
 <template>
   <div class="expertContent">
     <div class="Tabletitle">专家信息列表</div>
-    <tables :columns="columns7" :data="data6" :total="data6.length" page-size="13"></tables>
+    <tables :columns="columns" :data="dataList" :total="dataList.length" :page-size="13"></tables>
   </div>
 </template>
 
 <script>
 import tables from '../../components/tables/tables.vue'
+import {getList} from '../../axios/expert.js'
 export default{
   name: 'Expert',
   components: {
@@ -14,18 +15,62 @@ export default{
   },
   data () {
     return {
-      columns7: [
+      columns: [
         {
-          title: 'Name',
-          key: 'name'
+          title: 'Id',
+          key: 'id',
+          align: 'center'
         },
         {
-          title: 'Age',
-          key: 'age'
+          title: '专家姓名',
+          key: 'professorName',
+          align: 'center'
         },
         {
-          title: 'Address',
-          key: 'address'
+          title: '性别',
+          key: 'gender',
+          align: 'center'
+        },
+        {
+          title: '出生日期',
+          key: 'data',
+          tooltip: true,
+          align: 'center'
+        },
+        {
+          title: '家庭住址',
+          key: 'address',
+          align: 'center'
+        },
+        {
+          title: '联系方式',
+          key: 'telephone',
+          align: 'center'
+        },
+        {
+          title: '所属领域',
+          key: 'field',
+          align: 'center'
+        },
+        {
+          title: '所属专业',
+          key: 'professional',
+          align: 'center'
+        },
+        {
+          title: '相关经验',
+          key: 'relatedExperience',
+          align: 'center'
+        },
+        {
+          title: '资质政府',
+          key: 'qualificationGovernment',
+          align: 'center'
+        },
+        {
+          title: '所获奖项',
+          key: 'awards',
+          align: 'center'
         },
         {
           title: '操作',
@@ -64,164 +109,16 @@ export default{
           }
         }
       ],
-      data6: [
-        {
-          name: 'John Brown',
-          age: 18,
-          address: 'New York No. 1 Lake Park'
-        },
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        },
-
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        },
-
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        },
-
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        },
-
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        },
-
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        },
-        {
-          name: 'John Brown',
-          age: 18,
-          address: 'New York No. 1 Lake Park'
-        },
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        }
-      ]
+      dataList: []
     }
+  },
+  mounted () {
+    let _this = this
+    getList().then(res => {
+      console.log(res)
+      _this.dataList = res.data.data
+      console.log(_this.dataList)
+    })
   }
 }
 </script>

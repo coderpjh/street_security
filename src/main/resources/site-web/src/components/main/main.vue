@@ -79,7 +79,6 @@ export default{
       arr.forEach(item => {
         this.nav.push(item.meta.label)
       })
-      console.log(this.nav)
     }
   },
   methods: {
@@ -94,7 +93,6 @@ export default{
     }
   },
   mounted () {
-    console.log(this.$route)
     this.nav = []
     let arr = this.$route.matched
     arr.forEach(item => {

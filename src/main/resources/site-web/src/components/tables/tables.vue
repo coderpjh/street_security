@@ -32,6 +32,11 @@ export default {
       currentindex: 1
     }
   },
+  watch: {
+    data () {
+      this.pagechange(1)
+    }
+  },
   methods: {
     pagechange (index) {
       var start = (index - 1) * this.pageSize

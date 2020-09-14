@@ -113,9 +113,6 @@ export default {
       } else this.isLogin = false
     },
     handleSubmit (name) {
-      check().then(res => {
-        console.log(res)
-      })
       // handlelogin().then(res => {
       //   console.log(res)
       // })
