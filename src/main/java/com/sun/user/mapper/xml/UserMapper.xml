@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sun.user.mapper.UserMapper">
-    <select id="selectPasswordByName" parameterType="com.sun.user.dto.UserLoginDto" resultType="User">
+    <select id="selectPasswordByName" parameterType="com.sun.user.dto.UserLoginDto" resultType="com.sun.user.entity.User">
     select * from user where user_name = #{queryDto.userName} and password = #{queryDto.password}
     </select>
+
 </mapper>

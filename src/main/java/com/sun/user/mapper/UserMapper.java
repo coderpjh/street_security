@@ -1,8 +1,8 @@
 package com.sun.user.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.sun.user.dto.UserLoginDto;
 import com.sun.user.entity.User;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
