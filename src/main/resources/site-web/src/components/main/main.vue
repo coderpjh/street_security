@@ -9,14 +9,6 @@
                               <Icon type="ios-navigate"></Icon>
                               顶部页签1
                           </MenuItem>
-                          <MenuItem name="2">
-                              <Icon type="ios-keypad"></Icon>
-                              顶部页签2
-                          </MenuItem>
-                          <MenuItem name="3">
-                              <Icon type="ios-analytics"></Icon>
-                              顶部页签3
-                          </MenuItem>
                           <MenuItem name="4" style="text-align: center;width: 100px;" >
                               <Dropdown>
                                       <a href="javascript:void(0)">
@@ -24,7 +16,7 @@
                                       </a>
                                       <DropdownMenu slot="list">
                                           <DropdownItem>修改信息</DropdownItem>
-                                          <DropdownItem @click.native="logout">退出登录</DropdownItem>
+                                          <DropdownItem @click.native="toOther('/')">退出登录</DropdownItem>
                                       </DropdownMenu>
                                   </Dropdown>
                           </MenuItem>
@@ -33,28 +25,55 @@
               </Header>
               <Layout>
                   <Sider hide-trigger :style="{background: '#fff'}">
-                      <Menu active-name="" theme="light" width="auto" :open-names="['1']">
-                          <Submenu name="1">
+                      <Menu active-name="1" theme="light" width="auto" :open-names="[]">
+                        <MenuItem name="1" @click.native="toOther('/homeMap')">
+                                    <Icon type="md-home" />
+                                    首页总览
+                                </MenuItem>
+                          <Submenu name="2">
                               <template slot="title">
                                   <Icon type="md-card" />
                                   任务栏
                               </template>
-                              <MenuItem name="1-1" @click.native="$router.push({path:'employee'})">常规任务</MenuItem>
-                              <MenuItem name="1-2">专项任务</MenuItem>
-                              <MenuItem name="1-3">通用任务</MenuItem>
-                              <MenuItem name="1-4">特性任务</MenuItem>
+                              <MenuItem name="2-1" @click.native="$router.push({path:'employee'})">常规任务</MenuItem>
+                              <MenuItem name="2-2">专项任务</MenuItem>
+                              <MenuItem name="2-3">通用任务</MenuItem>
+                              <MenuItem name="2-4">特性任务</MenuItem>
                           </Submenu>
-                          <MenuItem name="2" @click.native="toExpert">
+                          <Submenu name="3">
+                              <template slot="title">
+                                  <Icon type="ios-nuclear" />
+                                  上报风险
+                              </template>
+                              <MenuItem name="3-1">财政所</MenuItem>
+                              <MenuItem name="3-2">党政办</MenuItem>
+                              <MenuItem name="3-3">党建办</MenuItem>
+                              <MenuItem name="3-4">经发办</MenuItem>
+                          </Submenu>
+
+                          <Submenu name="4">
+                              <template slot="title">
+                                  <Icon type="ios-person" />
+                                  安全风险监管
+                              </template>
+                              <MenuItem name="4-1">风险图表</MenuItem>
+                              <MenuItem name="4-2">风险地图</MenuItem>
+                          </Submenu>
+                          <MenuItem name="5">
                                       <Icon type="ios-people" />
-                                      专家库
+                                      部门监管
                                   </MenuItem>
+                          <MenuItem name="6" @click.native="toOther('/Expert')">
+                                              <Icon type="ios-school" />
+                                              专家库
+                                          </MenuItem>
                       </Menu>
                   </Sider>
                   <Layout :style="{padding: '0 24px 24px'}">
                       <Breadcrumb :style="{margin: '24px 0'}">
                           <BreadcrumbItem v-for="(item ,index) in nav" :key="index">{{item}}</BreadcrumbItem>
                       </Breadcrumb>
-                      <Content :style="{padding: '0 24px 24px 24px', minHeight: '280px', background: '#fff'}">
+                      <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
                           <router-view/>
                       </Content>
                   </Layout>
@@ -85,11 +104,8 @@ export default{
     test () {
       alert('测试哈')
     },
-    toExpert () {
-      this.$router.push({path: '/Expert'})
-    },
-    logout () {
-      this.$router.push({path: '/'})
+    toOther (path) {
+      this.$router.push({path: path})
     }
   },
   mounted () {

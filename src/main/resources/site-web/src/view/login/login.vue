@@ -118,7 +118,6 @@ export default {
       // })
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success('Success!')
           if (name === 'formLogin') {
             this.$router.push({path: '/home'})
           } else if (name === 'formRegister') {
@@ -126,9 +125,9 @@ export default {
               this.$Message.error('两次密码输入不一致！')
               return
             }
-
             register(this.registerData).then(() => {
-              alert('注册成功')
+              this.$Message.success('注册成功！请登陆')
+              this.changeTab(this.loginType[0])
             })
             console.log(this.registerData)
           }
