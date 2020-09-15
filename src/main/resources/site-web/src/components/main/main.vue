@@ -54,7 +54,7 @@
                       <Breadcrumb :style="{margin: '24px 0'}">
                           <BreadcrumbItem v-for="(item ,index) in nav" :key="index">{{item}}</BreadcrumbItem>
                       </Breadcrumb>
-                      <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
+                      <Content :style="{padding: '0 24px 24px 24px', minHeight: '280px', background: '#fff'}">
                           <router-view/>
                       </Content>
                   </Layout>
@@ -79,7 +79,6 @@ export default{
       arr.forEach(item => {
         this.nav.push(item.meta.label)
       })
-      console.log(this.nav)
     }
   },
   methods: {
@@ -94,7 +93,6 @@ export default{
     }
   },
   mounted () {
-    console.log(this.$route)
     this.nav = []
     let arr = this.$route.matched
     arr.forEach(item => {

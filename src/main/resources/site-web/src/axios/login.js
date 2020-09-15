@@ -12,6 +12,4 @@ export const register = data => {
   return fetch('post', '/user/user/add', data)
 }
 
-export const check = () => {
-  return fetch('get', '/professor/professor/list')
-}
+

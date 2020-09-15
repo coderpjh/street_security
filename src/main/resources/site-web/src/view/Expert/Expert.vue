@@ -1,43 +1,89 @@
 <template>
-  <div>
-    <Table border :columns="columns7" :data="data6"></Table>
+  <div class="expertContent">
+    <div class="Tabletitle">专家信息列表</div>
+    <tables ref='table' :columns="columns" :data="dataList" :total="dataList.length" :page-size="13"></tables>
   </div>
 </template>
 
 <script>
+import tables from '../../components/tables/tables.vue'
+import viewExpert from './viewExpert.vue'
+import {getList, deleteExpert} from '../../axios/expert.js'
 export default{
   name: 'Expert',
+  components: {
+    tables,
+    viewExpert
+  },
   data () {
     return {
-      columns7: [
+      formData: {},
+      columns: [
         {
-          title: 'Name',
-          key: 'name',
-          render: (h, params) => {
-            return h('div', [
-              h('Icon', {
-                props: {
-                  type: 'person'
-                }
-              }),
-              h('strong', params.row.name)
-            ])
-          }
+          title: 'Id',
+          key: 'id',
+          align: 'center'
         },
         {
-          title: 'Age',
-          key: 'age'
+          title: '专家姓名',
+          key: 'professorName',
+          align: 'center'
         },
         {
-          title: 'Address',
-          key: 'address'
+          title: '性别',
+          key: 'gender',
+          align: 'center'
         },
         {
-          title: 'Action',
+          title: '出生日期',
+          key: 'data',
+          tooltip: true,
+          align: 'center'
+        },
+        {
+          title: '家庭住址',
+          key: 'address',
+          tooltip: true,
+          align: 'center'
+        },
+        {
+          title: '联系方式',
+          key: 'telephone',
+          align: 'center'
+        },
+        {
+          title: '所属领域',
+          key: 'field',
+          align: 'center'
+        },
+        {
+          title: '所属专业',
+          key: 'professional',
+          tooltip: true,
+          align: 'center'
+        },
+        {
+          title: '相关经验',
+          key: 'relatedExperience',
+          align: 'center'
+        },
+        {
+          title: '资质政府',
+          key: 'qualificationGovernment',
+          align: 'center'
+        },
+        {
+          title: '所获奖项',
+          key: 'awards',
+          align: 'center'
+        },
+        {
+          title: '操作',
           key: 'action',
           width: 150,
           align: 'center',
           render: (h, params) => {
+            let _this = this
             return h('div', [
               h('Button', {
                 props: {
@@ -49,10 +95,11 @@ export default{
                 },
                 on: {
                   click: () => {
-                    this.show(params.index)
+                    console.log(params.row)
+                    this.view(params)
                   }
                 }
-              }, 'View'),
+              }, '编辑'),
               h('Button', {
                 props: {
                   type: 'error',
@@ -60,180 +107,59 @@ export default{
                 },
                 on: {
                   click: () => {
-                    this.remove(params.index)
+                    _this.$Modal.confirm({
+                      title: '确认要删除该条数据吗？',
+                      onOk: () => {
+                        deleteExpert(params.row.id).then(() => {
+                          _this.$Message.success({
+                            content: '删除成功'
+                          })
+                          _this.$refs['table'].remove(params.index)
+                        })
+                      }
+                    })
                   }
                 }
-              }, 'Delete')
+              }, '删除')
             ])
           }
         }
       ],
-      data6: [
-        {
-          name: 'John Brown',
-          age: 18,
-          address: 'New York No. 1 Lake Park'
-        },
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        },
-        {
-          name: 'John Brown',
-          age: 18,
-          address: 'New York No. 1 Lake Park'
-        },
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        },
-        {
-          name: 'John Brown',
-          age: 18,
-          address: 'New York No. 1 Lake Park'
-        },
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        },
-        {
-          name: 'John Brown',
-          age: 18,
-          address: 'New York No. 1 Lake Park'
-        },
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        },
-        {
-          name: 'John Brown',
-          age: 18,
-          address: 'New York No. 1 Lake Park'
-        },
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        },
-        {
-          name: 'John Brown',
-          age: 18,
-          address: 'New York No. 1 Lake Park'
-        },
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        },
-        {
-          name: 'John Brown',
-          age: 18,
-          address: 'New York No. 1 Lake Park'
-        },
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        },
-        {
-          name: 'John Brown',
-          age: 18,
-          address: 'New York No. 1 Lake Park'
-        },
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park'
-        }
-      ]
+      dataList: []
     }
+  },
+  methods: {
+    view (params) {
+      this.formData = Object.assign({}, params.row)
+      this.$Modal.confirm({
+        render: (h) => {
+          return h(viewExpert, {
+            props: {
+              formData: this.formData
+            },
+            on: {
+              input: (val) => {
+              }
+            }
+          })
+        },
+        onOk: () => {
+          console.log(this.formData)
+        }
+      })
+    }
+  },
+  mounted () {
+    let _this = this
+    getList().then(res => {
+      console.log(res)
+      _this.dataList = res.data.data
+      console.log(_this.dataList)
+    })
   }
 }
 </script>
 
-<style>
+<style lang="less">
+  @import "./Expert.less";
 </style>
