@@ -13,7 +13,7 @@ import lombok.experimental.Accessors;
 public class UserAddDto {
 
     /**
-     *主键ID
+     * 主键ID
      */
     @ApiModelProperty(value = "主键ID")
     private Long id;
@@ -29,7 +29,7 @@ public class UserAddDto {
     private String password;
 
     /**
-     *权限等级
+     * 权限等级
      */
     @ApiModelProperty(value = "权限等级")
     private Integer level;
