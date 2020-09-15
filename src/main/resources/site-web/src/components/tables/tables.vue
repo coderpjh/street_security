@@ -43,6 +43,9 @@ export default {
       var end = index * this.pageSize
       this.showlist = this.data.slice(start, end)
       this.currentindex = index
+    },
+    remove (index) {
+      this.showlist.splice(index, 1)
     }
   },
   mounted () {

@@ -1,14 +1,14 @@
 <template>
   <div class="expertContent">
     <div class="Tabletitle">专家信息列表</div>
-    <tables :columns="columns" :data="dataList" :total="dataList.length" :page-size="13"></tables>
+    <tables ref='table' :columns="columns" :data="dataList" :total="dataList.length" :page-size="13"></tables>
   </div>
 </template>
 
 <script>
 import tables from '../../components/tables/tables.vue'
 import viewExpert from './viewExpert.vue'
-import {getList} from '../../axios/expert.js'
+import {getList, deleteExpert} from '../../axios/expert.js'
 export default{
   name: 'Expert',
   components: {
@@ -107,7 +107,17 @@ export default{
                 },
                 on: {
                   click: () => {
-                    _this.remove(params.index)
+                    _this.$Modal.confirm({
+                      title: '确认要删除该条数据吗？',
+                      onOk: () => {
+                        deleteExpert(params.row.id).then(() => {
+                          _this.$Message.success({
+                            content: '删除成功'
+                          })
+                          _this.$refs['table'].remove(params.index)
+                        })
+                      }
+                    })
                   }
                 }
               }, '删除')
