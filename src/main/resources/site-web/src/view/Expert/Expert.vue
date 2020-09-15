@@ -7,14 +7,17 @@
 
 <script>
 import tables from '../../components/tables/tables.vue'
+import viewExpert from './viewExpert.vue'
 import {getList} from '../../axios/expert.js'
 export default{
   name: 'Expert',
   components: {
-    tables
+    tables,
+    viewExpert
   },
   data () {
     return {
+      formData: {},
       columns: [
         {
           title: 'Id',
@@ -40,6 +43,7 @@ export default{
         {
           title: '家庭住址',
           key: 'address',
+          tooltip: true,
           align: 'center'
         },
         {
@@ -55,6 +59,7 @@ export default{
         {
           title: '所属专业',
           key: 'professional',
+          tooltip: true,
           align: 'center'
         },
         {
@@ -90,7 +95,8 @@ export default{
                 },
                 on: {
                   click: () => {
-                    this.show(params.index)
+                    console.log(params.row)
+                    this.view(params)
                   }
                 }
               }, '编辑'),
@@ -110,6 +116,27 @@ export default{
         }
       ],
       dataList: []
+    }
+  },
+  methods: {
+    view (params) {
+      this.formData = Object.assign({}, params.row)
+      this.$Modal.confirm({
+        render: (h) => {
+          return h(viewExpert, {
+            props: {
+              formData: this.formData
+            },
+            on: {
+              input: (val) => {
+              }
+            }
+          })
+        },
+        onOk: () => {
+          console.log(this.formData)
+        }
+      })
     }
   },
   mounted () {
