@@ -36,6 +36,13 @@ export default new Router({
           component: () => import('@/view/employee/employee.vue')
         },
         {
+          path: '/riskMonitor',
+          meta: {
+            label: '风险图表'
+          },
+          component: () => import('@/view/riskMonitor/riskMonitor.vue')
+        },
+        {
           path: '/Expert',
           meta: {
             label: '专家库列表'
