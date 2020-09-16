@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -28,7 +29,6 @@ import java.util.List;
 public class ProfessorController {
 
     private final ProfessorService professorService;
-
 
     /**
      * 添加专家信息
