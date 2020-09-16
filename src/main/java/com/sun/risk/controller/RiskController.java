@@ -44,6 +44,21 @@ public class RiskController {
     }
 
     /**
+     * 风险上报信息更新
+     *
+     * @param riskAddDto 风险上报更新信息对象
+     * @return
+     */
+    @PostMapping("/update")
+    @ApiOperation(value = "更新风险信息", notes = "更新风险信息")
+    public R<String> update(@Validated @RequestBody RiskAddDto riskAddDto){
+        Risk risk = riskService.getById(riskAddDto.getId());
+        BeanUtils.copyProperties(riskAddDto, risk);
+        riskService.save(risk);
+        return R.ok("风险信息更新成功");
+    }
+
+    /**
      * 风险信息查询
      *
      * @return 返回操作结果
@@ -55,6 +70,22 @@ public class RiskController {
         queryWrapper.orderByDesc(Risk::getCreateTime);
         List<Risk> list = riskService.list(queryWrapper);
         return R.ok(list);
+    }
+
+    /**
+     * 风险信息删除
+     *
+     * @param id
+     * @return 返回操作结果
+     */
+    @PostMapping("/delete/{id}")
+    @ApiOperation(value = "删除风险信息", notes = "删除风险信息")
+    public R<Boolean> delete(@PathVariable Long id){
+        if (id == null) {
+            return R.failed("风险信息不存在");
+        }
+        riskService.removeById(id);
+        return R.ok(Boolean.TRUE);
     }
 }
 
