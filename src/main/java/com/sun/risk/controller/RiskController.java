@@ -51,11 +51,11 @@ public class RiskController {
      */
     @PostMapping("/update")
     @ApiOperation(value = "更新风险信息", notes = "更新风险信息")
-    public R<String> update(@Validated @RequestBody RiskAddDto riskAddDto){
+    public R<Long> update(@RequestBody @Validated RiskAddDto riskAddDto){
         Risk risk = riskService.getById(riskAddDto.getId());
         BeanUtils.copyProperties(riskAddDto, risk);
-        riskService.save(risk);
-        return R.ok("风险信息更新成功");
+        riskService.updateById(risk);
+        return R.ok(risk.getId());
     }
 
     /**
