@@ -113,9 +113,9 @@ export default {
       } else this.isLogin = false
     },
     handleSubmit (name) {
-      // handlelogin().then(res => {
-      //   console.log(res)
-      // })
+      handlelogin().then(res => {
+        console.log(res)
+      })
       this.$refs[name].validate((valid) => {
         if (valid) {
           if (name === 'formLogin') {

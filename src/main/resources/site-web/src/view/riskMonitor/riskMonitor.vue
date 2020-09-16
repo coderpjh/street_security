@@ -1,20 +1,23 @@
 <template>
-  <div class="expertContent">
-    <div class="Tabletitle">街道风险图表</div>
+  <div class="riskContent">
+    <div class="Tabletitle">街道风险列表</div>
     <tables ref='table' :columns="columns" :data="dataList" :total="dataList.length" :page-size="13"></tables>
   </div>
 </template>
 
 <script>
 import tables from '../../components/tables/tables.vue'
+import viewRisk from './viewRisk.vue'
 import {getList} from '../../axios/riskMonitor.js'
 export default{
   name: 'riskMonitor',
   components: {
-    tables
+    tables,
+    viewRisk
   },
   data () {
     return {
+      formData: {},
       columns: [
         {
           title: 'ID',
@@ -86,6 +89,7 @@ export default{
                 },
                 on: {
                   click: () => {
+                    this.view(params)
                     console.log(params.row)
                   }
                 }
@@ -113,30 +117,30 @@ export default{
     }
   },
   methods: {
-    // view (params) {
-    //   this.formData = Object.assign({}, params.row)
-    //   this.$Modal.confirm({
-    //     render: (h) => {
-    //       return h(viewExpert, {
-    //         props: {
-    //           formData: this.formData
-    //         },
-    //         on: {
-    //           input: (val) => {
-    //           }
-    //         }
-    //       })
-    //     },
-    //     onOk: () => {
-    //       updateExpert(this.formData).then(res => {
-    //         this.$Message.success({
-    //           content: '更新成功'
-    //         })
-    //         this.getData()
-    //       })
-    //     }
-    //   })
-    // },
+    view (params) {
+      this.formData = Object.assign({}, params.row)
+      this.$Modal.confirm({
+        render: (h) => {
+          return h(viewRisk, {
+            props: {
+              formData: this.formData
+            },
+            on: {
+              input: (val) => {
+              }
+            }
+          })
+        },
+        onOk: () => {
+          updateExpert(this.formData).then(res => {
+            this.$Message.success({
+              content: '更新成功'
+            })
+            this.getData()
+          })
+        }
+      })
+    },
     getData () {
       let _this = this
       getList().then(res => {
