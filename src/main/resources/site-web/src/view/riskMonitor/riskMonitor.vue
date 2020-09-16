@@ -8,7 +8,7 @@
 <script>
 import tables from '../../components/tables/tables.vue'
 import viewRisk from './viewRisk.vue'
-import {getList} from '../../axios/riskMonitor.js'
+import {getList, updateRisk, deleteRisk} from '../../axios/riskMonitor.js'
 export default{
   name: 'riskMonitor',
   components: {
@@ -104,6 +104,12 @@ export default{
                     _this.$Modal.confirm({
                       title: '确认要删除该条数据吗？',
                       onOk: () => {
+                        deleteRisk(params.row.id).then(() => {
+                          _this.$Message.success({
+                            content: '删除成功'
+                          })
+                          _this.$refs['table'].remove(params.index)
+                        })
                       }
                     })
                   }
@@ -132,7 +138,7 @@ export default{
           })
         },
         onOk: () => {
-          updateExpert(this.formData).then(res => {
+          updateRisk(this.formData).then(res => {
             this.$Message.success({
               content: '更新成功'
             })
@@ -144,8 +150,9 @@ export default{
     getData () {
       let _this = this
       getList().then(res => {
-        _this.dataList = res.data.data
         console.log(res)
+        _this.dataList = res.data.data
+        console.log(_this.dataList)
       })
     }
   },
