@@ -45,7 +45,7 @@
                                   <Icon type="ios-nuclear" />
                                   上报风险
                               </template>
-                              <MenuItem name="3-1">综治办</MenuItem>
+                              <MenuItem name="3-1"  @click.native="toOther('/compreOffice')">综治办</MenuItem>
                               <MenuItem name="3-2">党政办</MenuItem>
                               <MenuItem name="3-3">党建办</MenuItem>
                               <MenuItem name="3-4">经发办</MenuItem>
