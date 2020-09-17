@@ -41,7 +41,7 @@ public class ProfessorController {
         Professor professor = new Professor();
         BeanUtils.copyProperties(professorAddDto, professor);
         professorService.save(professor);
-        return R.ok("用户信息添加成功");
+        return R.ok("专家信息添加成功");
     }
 
     /*
