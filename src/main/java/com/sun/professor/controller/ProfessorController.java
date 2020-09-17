@@ -54,6 +54,9 @@ public class ProfessorController {
     @ApiOperation(value = "更新专家信息", notes = "更新专家信息")
     public R<Long> update(@RequestBody @Validated ProfessorAddDto professorAddDto) {
         Professor professor = professorService.getById(professorAddDto.getId());
+        if (professor == null) {
+            return R.failed("此专家信息不存在");
+        }
         BeanUtils.copyProperties(professorAddDto, professor);
         professorService.updateById(professor);
         return R.ok(professor.getId());
@@ -83,7 +86,7 @@ public class ProfessorController {
      */
     @GetMapping("/list")
     @ApiOperation(value = "获取专家信息", notes = "获取专家信息")
-    public R<List<Professor>> list(){
+    public R<List<Professor>> list() {
         LambdaQueryWrapper<Professor> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.orderByDesc(Professor::getCreateTime);
         List<Professor> list = professorService.list(queryWrapper);

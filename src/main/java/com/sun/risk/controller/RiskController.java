@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author sunql
@@ -36,7 +36,7 @@ public class RiskController {
      */
     @PostMapping("/add")
     @ApiOperation(value = "添加风险信息", notes = "添加风险信息")
-    public R<String> add(@Validated @RequestBody RiskAddDto riskAddDto){
+    public R<String> add(@Validated @RequestBody RiskAddDto riskAddDto) {
         Risk risk = new Risk();
         BeanUtils.copyProperties(riskAddDto, risk);
         riskService.save(risk);
@@ -51,7 +51,7 @@ public class RiskController {
      */
     @PostMapping("/update")
     @ApiOperation(value = "更新风险信息", notes = "更新风险信息")
-    public R<Long> update(@RequestBody @Validated RiskAddDto riskAddDto){
+    public R<Long> update(@RequestBody @Validated RiskAddDto riskAddDto) {
         Risk risk = riskService.getById(riskAddDto.getId());
         BeanUtils.copyProperties(riskAddDto, risk);
         riskService.updateById(risk);
@@ -65,7 +65,7 @@ public class RiskController {
      */
     @GetMapping("/list")
     @ApiOperation(value = "获取风险信息", notes = "获取风险信息")
-    public R<List<Risk>> list(){
+    public R<List<Risk>> list() {
         LambdaQueryWrapper<Risk> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.orderByDesc(Risk::getCreateTime);
         List<Risk> list = riskService.list(queryWrapper);
@@ -80,7 +80,7 @@ public class RiskController {
      */
     @PostMapping("/delete/{id}")
     @ApiOperation(value = "删除风险信息", notes = "删除风险信息")
-    public R<Boolean> delete(@PathVariable Long id){
+    public R<Boolean> delete(@PathVariable Long id) {
         if (id == null) {
             return R.failed("风险信息不存在");
         }
