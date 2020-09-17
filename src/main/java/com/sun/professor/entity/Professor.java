@@ -23,7 +23,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("professor")
-@ApiModel(value="Professor对象", description="专家信息对象")
+@ApiModel(value="Professor对象", description="专家信息表")
 public class Professor implements Serializable {
 
     private static final long serialVersionUID = 1L;

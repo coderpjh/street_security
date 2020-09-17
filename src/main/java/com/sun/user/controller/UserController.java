@@ -12,6 +12,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * <p>
  * 用户信息表 前端控制器
@@ -27,18 +29,22 @@ public class UserController {
 
     private final UserService userService;
 
-
+    /**
+     * 用户登录
+     *
+     * @param userLoginDto 用户登录对象
+     * @return
+     */
     @GetMapping("/login")
     @ApiOperation(value = "用户登录", notes = "用户登录")
-    public R<Boolean> login(@RequestBody @Validated UserLoginDto userLoginDto){
-        User user = userService.selectPasswordByName(userLoginDto);
-        if ( user != null){
-            //登录成功！
-            return R.ok(Boolean.TRUE);
-        }else {
-            //登录失败！
-            return R.failed("用户名或密码错误");
+    public R<Boolean> login(UserLoginDto userLoginDto) {
+        List<User> list = userService.list();
+        for (User user : list) {
+            if (user.getUserName().equals(userLoginDto.getUserName()) && user.getPassword().equals(userLoginDto.getPassword())) {
+                return R.ok(true);
+            }
         }
+        return R.failed("用户名或密码错误");
     }
 
     /**
@@ -49,7 +55,7 @@ public class UserController {
      */
     @PostMapping("/add")
     @ApiOperation(value = "添加用户信息", notes = "添加用户信息(注册)")
-    public R<String> add(@RequestBody @Validated UserAddDto userAddDto){
+    public R<String> add(@RequestBody @Validated UserAddDto userAddDto) {
         User user = new User();
         BeanUtils.copyProperties(userAddDto, user);
         userService.save(user);
