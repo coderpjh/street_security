@@ -71,6 +71,12 @@ public class Risk implements Serializable {
     private String latitude;
 
     /**
+     * 上报部门
+     */
+    @ApiModelProperty(value = "上报部门")
+    private String  reportDepartment;
+
+    /**
      * 风险上报人
      */
     @ApiModelProperty(value = "风险上报人")
