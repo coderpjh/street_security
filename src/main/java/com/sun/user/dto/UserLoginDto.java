@@ -13,6 +13,12 @@ import lombok.experimental.Accessors;
 public class UserLoginDto {
 
     /**
+     * 主键ID
+     */
+    @ApiModelProperty(value = "主键ID")
+    private Long id;
+
+    /**
      * 用户名称
      */
     @ApiModelProperty(value = "用户名称")

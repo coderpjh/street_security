@@ -44,7 +44,7 @@ public class UserController {
                 return R.ok(true);
             }
         }
-        return R.failed("用户名或密码错误");
+        return R.ok(false);
     }
 
     /**
