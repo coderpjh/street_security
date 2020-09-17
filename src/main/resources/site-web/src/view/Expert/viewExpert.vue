@@ -6,7 +6,7 @@
         <Radio :label="1">男</Radio>
         <Radio :label="0">女</Radio>
     </RadioGroup>
-    <span class="label">出生日期：</span> <DatePicker v-model="formData.data" type="datetime" placeholder="选择出生日期" style="width: 300px"></DatePicker>
+    <span class="label">出生日期：</span> <DatePicker v-model="formData.data" type="date" placeholder="选择出生日期" style="width: 300px"></DatePicker>
     <span class="label">家庭住址：</span><Input v-model="formData.address" placeholder="请输入" style="width: 300px" />
     <span class="label">联系方式：</span><Input v-model="formData.telephone" placeholder="请输入" style="width: 300px" />
     <span class="label">所属领域：</span><Input v-model="formData.field" placeholder="请输入" style="width: 300px" />

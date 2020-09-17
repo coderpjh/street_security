@@ -43,6 +43,13 @@ export default new Router({
           component: () => import('@/view/riskMonitor/riskMonitor.vue')
         },
         {
+          path: '/riskMap',
+          meta: {
+            label: '风险地图'
+          },
+          component: () => import('@/view/riskMap/riskMap.vue')
+        },
+        {
           path: '/Expert',
           meta: {
             label: '专家库列表'

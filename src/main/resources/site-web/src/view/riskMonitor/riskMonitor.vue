@@ -19,11 +19,11 @@ export default{
     return {
       formData: {},
       columns: [
-        {
-          title: 'ID',
-          key: 'id',
-          align: 'center'
-        },
+        // {
+        //   title: 'ID',
+        //   key: 'id',
+        //   align: 'center'
+        // },
         {
           title: '风险名称',
           key: 'riskName',

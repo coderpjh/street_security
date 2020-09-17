@@ -21,12 +21,12 @@ export default{
     return {
       formData: {},
       columns: [
-        {
-          title: 'Id',
-          key: 'id',
-          align: 'center',
-          tooltip: true
-        },
+        // {
+        //   title: 'Id',
+        //   key: 'id',
+        //   align: 'center',
+        //   tooltip: true
+        // },
         {
           title: '专家姓名',
           key: 'professorName',

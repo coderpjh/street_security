@@ -45,7 +45,7 @@
                                   <Icon type="ios-nuclear" />
                                   上报风险
                               </template>
-                              <MenuItem name="3-1">财政所</MenuItem>
+                              <MenuItem name="3-1">综治办</MenuItem>
                               <MenuItem name="3-2">党政办</MenuItem>
                               <MenuItem name="3-3">党建办</MenuItem>
                               <MenuItem name="3-4">经发办</MenuItem>
@@ -57,7 +57,7 @@
                                   安全风险监管
                               </template>
                               <MenuItem name="4-1"  @click.native="toOther('/riskMonitor')">风险图表</MenuItem>
-                              <MenuItem name="4-2">风险地图</MenuItem>
+                              <MenuItem name="4-2"  @click.native="toOther('/riskMap')">风险地图</MenuItem>
                           </Submenu>
                           <MenuItem name="5">
                                       <Icon type="ios-people" />
