@@ -45,7 +45,7 @@
                                   <Icon type="ios-nuclear" />
                                   上报风险
                               </template>
-                              <MenuItem name="3-1"  @click.native="toOther('/compreOffice')">综治办</MenuItem>
+                              <MenuItem name="3-1"  @click.native="reportRisk">综治办</MenuItem>
                               <MenuItem name="3-2">党政办</MenuItem>
                               <MenuItem name="3-3">党建办</MenuItem>
                               <MenuItem name="3-4">经发办</MenuItem>
@@ -83,12 +83,14 @@
 </template>
 
 <script>
+import viewRisk from '../../view/riskMonitor/viewRisk.vue'
 export default{
   name: 'main',
   data () {
     return {
       userChoice: false,
-      nav: []
+      nav: [],
+      formData: null
     }
   },
   watch: {
@@ -106,6 +108,31 @@ export default{
     },
     toOther (path) {
       this.$router.push({path: path})
+    },
+    reportRisk () {
+      this.formData = {}
+      this.$Modal.confirm({
+        render: (h) => {
+          return h(viewRisk, {
+            props: {
+              title: "上报风险",
+              formData: this.formData
+            },
+            on: {
+              input: (val) => {
+              }
+            }
+          })
+        },
+        onOk: () => {
+          updateRisk(this.formData).then(res => {
+            this.$Message.success({
+              content: '更新成功'
+            })
+            this.getData()
+          })
+        }
+      })
     }
   },
   mounted () {

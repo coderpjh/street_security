@@ -1,6 +1,6 @@
 <template>
   <div class="viewContent">
-    <div class="title">风险信息</div>
+    <div class="title">{{title}}</div>
     <span class="label">&nbsp;风险名称：</span><Input v-model="formData.riskName" placeholder="请输入" style="width: 290px" />
     <span class="label">&nbsp;所属区域：</span><Input v-model="formData.riskScope" placeholder="请输入" style="width: 290px" />
     <span class="label">&nbsp;风险等级：</span><Input v-model="formData.riskLevel" placeholder="请输入" style="width: 290px" />
@@ -17,6 +17,10 @@
 export default {
   name: 'viewExpert',
   props: {
+    title: {
+      type: String,
+      default: ''
+    },
     formData: {
       type: Object,
       default: () => {}

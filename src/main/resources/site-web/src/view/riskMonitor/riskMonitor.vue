@@ -56,6 +56,11 @@ export default{
           align: 'center'
         },
         {
+          title: '上报部门',
+          key: 'reportDepartment',
+          align: 'center'
+        },
+        {
           title: '风险上报人',
           key: 'reportName',
           align: 'center'
@@ -129,6 +134,7 @@ export default{
         render: (h) => {
           return h(viewRisk, {
             props: {
+              title: "风险信息",
               formData: this.formData
             },
             on: {

@@ -77,7 +77,6 @@ export default{
     },
     infoOpen (e) {
       this.showData = e.target.Ce.extData
-      console.log(e.target)
       this.modal = true
       // this.$Modal.info({
       //   render: (h) => {
