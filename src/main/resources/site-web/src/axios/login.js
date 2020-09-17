@@ -5,11 +5,10 @@ export const listOrder = function () {
 }
 
 export const handlelogin = data => {
-  return fetch('get', '/user/user/login', data)
+  let url = '/user/user/login?userName=' + data.userName + '&password=' + data.password
+  return fetch('get', url, data)
 }
 
 export const register = data => {
   return fetch('post', '/user/user/add', data)
 }
-
-

@@ -50,6 +50,13 @@ export default new Router({
           component: () => import('@/view/riskMap/riskMap.vue')
         },
         {
+          path: '/compreOffice',
+          meta: {
+            label: '综治办风险上报'
+          },
+          component: () => import('@/view/reportRisk/compreOffice/compreOffice.vue')
+        },
+        {
           path: '/Expert',
           meta: {
             label: '专家库列表'

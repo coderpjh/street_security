@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { handlelogin, register, listOrder, check} from '../../axios/login.js'
+import { handlelogin, register} from '../../axios/login.js'
 export default {
   components: {
   },
@@ -113,13 +113,17 @@ export default {
       } else this.isLogin = false
     },
     handleSubmit (name) {
-      handlelogin().then(res => {
-        console.log(res)
-      })
       this.$refs[name].validate((valid) => {
         if (valid) {
           if (name === 'formLogin') {
-            this.$router.push({path: '/home'})
+            handlelogin(this.loginData).then(res => {
+              console.log(res)
+              if (res.data.data) {
+                this.$router.push({path: '/home'})
+              } else {
+                this.$Message.error('账号密码输入有误！')
+              }
+            })
           } else if (name === 'formRegister') {
             if (this.registerData.password !== this.registerData.confirmPsw) {
               this.$Message.error('两次密码输入不一致！')
@@ -132,7 +136,6 @@ export default {
             console.log(this.registerData)
           }
         } else {
-          this.$Message.error('Fail!')
         }
       })
     }
