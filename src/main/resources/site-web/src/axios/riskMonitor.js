@@ -13,3 +13,8 @@ export const deleteRisk = id => {
 export const updateRisk = data => {
   return fetch('post', '/risk/risk/update', data)
 }
+
+/* 风险添加 */
+export const addRisk = data => {
+  return fetch('post', '/risk/risk/add', data)
+}

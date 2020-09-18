@@ -5,6 +5,7 @@
     <span class="label">&nbsp;所属区域：</span><Input v-model="formData.riskScope" placeholder="请输入" style="width: 290px" />
     <span class="label">&nbsp;风险等级：</span><Input v-model="formData.riskLevel" placeholder="请输入" style="width: 290px" />
     <span class="label">&nbsp;风险类型：</span><Input v-model="formData.riskType" placeholder="请输入" style="width: 290px" />
+    <span class="label">&nbsp;上报部门：</span><Input v-model="formData.reportDepartment" placeholder="请输入" style="width: 290px" />
     <span class="label">&nbsp;&nbsp;&nbsp;&nbsp;经&nbsp;度：</span><Input v-model="formData.longitude" placeholder="请输入" style="width: 290px" />
     <span class="label">&nbsp;&nbsp;&nbsp;&nbsp;纬&nbsp;度：</span><Input v-model="formData.latitude" placeholder="请输入" style="width: 290px" />
     <span class="label">风险上报人：</span><Input v-model="formData.reportName" placeholder="请输入" style="width: 290px" />
@@ -25,6 +26,14 @@ export default {
       type: Object,
       default: () => {}
     }
+  },
+  data () {
+    return {
+    }
+  },
+  mounted () {
+  },
+  methods: {
   }
 }
 </script>

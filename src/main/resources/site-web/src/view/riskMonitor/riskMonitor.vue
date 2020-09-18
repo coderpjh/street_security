@@ -38,7 +38,35 @@ export default{
         {
           title: '风险等级',
           key: 'riskLevel',
-          align: 'center'
+          align: 'center',
+          render: (h, params) => {
+            let level = parseInt(params.row.riskLevel)
+            if (level === 4) {
+              return h('span', {
+                style: {
+                  color: 'red'
+                }
+              }, '严重')
+            } else if (level === 3) {
+              return h('span', {
+                style: {
+                  color: ' #ffff00'
+                }
+              }, '较重')
+            } else if (level === 2) {
+              return h('span', {
+                style: {
+                  color: ' #3333ff'
+                }
+              }, '一般')
+            } else if (level === 1) {
+              return h('span', {
+                style: {
+                  color: '#00ff00'
+                }
+              }, '轻微')
+            }
+          }
         },
         {
           title: '风险类型',
@@ -134,7 +162,7 @@ export default{
         render: (h) => {
           return h(viewRisk, {
             props: {
-              title: "风险信息",
+              title: '风险信息',
               formData: this.formData
             },
             on: {

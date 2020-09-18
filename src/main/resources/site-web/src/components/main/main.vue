@@ -2,12 +2,11 @@
   <div class="layout">
           <Layout>
               <Header>
-                  <Menu mode="horizontal" theme="dark" active-name="1">
+                  <Menu mode="horizontal" theme="dark">
                       <div class="layout-title"><span>街道办安全管理系统</span></div>
                       <div class="layout-nav">
-                          <MenuItem name="1">
-                              <Icon type="ios-navigate"></Icon>
-                              顶部页签1
+                          <MenuItem name="1" class='welcome'>
+                              欢迎您 {{userName}}
                           </MenuItem>
                           <MenuItem name="4" style="text-align: center;width: 100px;" >
                               <Dropdown>
@@ -45,10 +44,10 @@
                                   <Icon type="ios-nuclear" />
                                   上报风险
                               </template>
-                              <MenuItem name="3-1"  @click.native="reportRisk">综治办</MenuItem>
-                              <MenuItem name="3-2">党政办</MenuItem>
-                              <MenuItem name="3-3">党建办</MenuItem>
-                              <MenuItem name="3-4">经发办</MenuItem>
+                              <MenuItem name="3-1"  @click.native="reportRisk('综治办')">综治办</MenuItem>
+                              <MenuItem name="3-2" @click.native="reportRisk('党政办')">党政办</MenuItem>
+                              <MenuItem name="3-3" @click.native="reportRisk('党建办')">党建办</MenuItem>
+                              <MenuItem name="3-4" @click.native="reportRisk('经发办')">经发办</MenuItem>
                           </Submenu>
 
                           <Submenu name="4">
@@ -84,6 +83,9 @@
 
 <script>
 import viewRisk from '../../view/riskMonitor/viewRisk.vue'
+
+import {addRisk} from '../../axios/riskMonitor.js'
+
 export default{
   name: 'main',
   data () {
@@ -109,13 +111,14 @@ export default{
     toOther (path) {
       this.$router.push({path: path})
     },
-    reportRisk () {
+    reportRisk (depart) {
       this.formData = {}
+      this.formData['reportDepartment'] = depart
       this.$Modal.confirm({
         render: (h) => {
           return h(viewRisk, {
             props: {
-              title: "上报风险",
+              title: depart + '风险上报',
               formData: this.formData
             },
             on: {
@@ -125,14 +128,19 @@ export default{
           })
         },
         onOk: () => {
-          updateRisk(this.formData).then(res => {
+          console.log(this.formData)
+          addRisk(this.formData).then(res => {
             this.$Message.success({
-              content: '更新成功'
+              content: '添加成功'
             })
-            this.getData()
           })
         }
       })
+    }
+  },
+  computed: {
+    userName () {
+      return this.$store.state.userName
     }
   },
   mounted () {
