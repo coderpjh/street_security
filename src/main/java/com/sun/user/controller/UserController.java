@@ -50,7 +50,7 @@ public class UserController {
     /**
      * 用户注册
      *
-     * @param userAddDto
+     * @param userAddDto 用户信息修改对象
      * @return
      */
     @PostMapping("/add")
@@ -60,6 +60,21 @@ public class UserController {
         BeanUtils.copyProperties(userAddDto, user);
         userService.save(user);
         return R.ok("用户信息添加成功");
+    }
+
+    /**
+     * 用户信息修改
+     *
+     * @param userAddDto 用户信息更新对象
+     * @return
+     */
+    @PostMapping("/update")
+    @ApiOperation(value = "更新用户信息", notes = "更新用户信息")
+    public R<Boolean> update(@RequestBody @Validated UserAddDto userAddDto){
+        User user = userService.getById(userAddDto.getId());
+        BeanUtils.copyProperties(userAddDto, user);
+        userService.updateById(user);
+        return R.ok(Boolean.TRUE);
     }
 }
 
