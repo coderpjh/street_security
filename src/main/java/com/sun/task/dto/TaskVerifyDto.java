@@ -25,6 +25,12 @@ public class TaskVerifyDto {
     private Integer taskStatus;
 
     /**
+     * 任务审核人
+     */
+    @ApiModelProperty(value = "任务审核人")
+    private String taskVerify;
+
+    /**
      * 审核结果
      */
     @ApiModelProperty(value = "审核结果")
