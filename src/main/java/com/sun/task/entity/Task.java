@@ -1,14 +1,11 @@
 package com.sun.task.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import java.io.Serializable;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -64,15 +61,53 @@ public class Task implements Serializable {
     private String taskDescription;
 
     /**
+     * 任务周期
+     */
+    @ApiModelProperty(value = "任务周期")
+    private String taskDate;
+
+    /**
+     * 任务紧急程度：1-紧急，2-正常， 3-可搁置
+     */
+    @ApiModelProperty(value = "任务紧急程度：1-紧急，2-正常， 3-可搁置")
+    private Integer taskUrgencyLevel;
+
+    /**
+     * 任务负责人
+     */
+    @ApiModelProperty(value = "任务负责人")
+    private String taskResponsible;
+
+    /**
+     * 任务审核人
+     */
+    @ApiModelProperty(value = "任务审核人")
+    private String taskVerify;
+
+    /**
+     * 审核状态:0-未审核， 1-已审核
+     */
+    @ApiModelProperty(value = "审核状态:0-未审核， 1-已审核")
+    private Integer taskStatus;
+
+    /**
+     * 审核结果
+     */
+    @ApiModelProperty(value = "审核结果")
+    private String verifyResult;
+
+    /**
      * 创建时间
      */
     @ApiModelProperty(value = "创建时间")
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     /**
      * 更新时间
      */
     @ApiModelProperty(value = "更新时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
     /**

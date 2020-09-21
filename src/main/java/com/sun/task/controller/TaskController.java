@@ -4,6 +4,7 @@ package com.sun.task.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.sun.task.dto.TaskAddDto;
+import com.sun.task.dto.TaskVerifyDto;
 import com.sun.task.entity.Task;
 import com.sun.task.service.TaskService;
 import io.swagger.annotations.ApiOperation;
@@ -40,6 +41,7 @@ public class TaskController {
     public R<Long> add(@RequestBody @Validated TaskAddDto taskAddDto) {
         Task task = new Task();
         BeanUtils.copyProperties(taskAddDto, task);
+        task.setTaskStatus(0);
         taskService.save(task);
         return R.ok(taskAddDto.getId());
     }
@@ -51,7 +53,7 @@ public class TaskController {
      * @return 返回操作结果
      */
     @PostMapping("/update")
-    @ApiOperation(value = "更新任务信息", notes = "添加更新信息")
+    @ApiOperation(value = "更新任务信息", notes = "更新任务信息")
     public R<Long> update(@RequestBody @Validated TaskAddDto taskAddDto) {
         if (taskAddDto.getId() == null) {
             return R.failed("任务信息不能为空");
@@ -91,6 +93,21 @@ public class TaskController {
         queryWrapper.orderByDesc(Task::getCreateTime);
         List<Task> list = taskService.list(queryWrapper);
         return R.ok(list);
+    }
+
+    /**
+     *  任务信息审核
+     *
+     * @param taskVerifyDto 任务信息审核对象
+     * @return 返回操作结果
+     */
+    @PostMapping("/verify")
+    @ApiOperation(value = "任务信息审核", notes = "任务信息审核")
+    public R<Boolean> verify(@RequestBody @Validated TaskVerifyDto taskVerifyDto){
+        Task task = taskService.getById(taskVerifyDto.getId());
+        task.setTaskStatus(taskVerifyDto.getTaskStatus());
+        taskService.updateById(task);
+        return R.ok(Boolean.TRUE);
     }
 
 }

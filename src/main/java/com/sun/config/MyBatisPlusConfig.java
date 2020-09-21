@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-// 扫描我们的 mapper 文件夹
+// 扫描我- mapper 文件夹
 @MapperScan("com.sun.mapper")
 @EnableTransactionManagement
 @Configuration
