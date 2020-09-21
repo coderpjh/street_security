@@ -29,11 +29,11 @@ export default new Router({
           component: () => import('@/view/homeMap/homeMap.vue')
         },
         {
-          path: '/employee',
+          path: '/Task',
           meta: {
-            label: '增加人员'
+            label: '任务列表'
           },
-          component: () => import('@/view/employee/employee.vue')
+          component: () => import('@/view/Task/Task.vue')
         },
         {
           path: '/riskMonitor',

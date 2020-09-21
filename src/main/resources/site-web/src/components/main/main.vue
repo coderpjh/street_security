@@ -34,10 +34,7 @@
                                   <Icon type="md-card" />
                                   任务栏
                               </template>
-                              <MenuItem name="2-1" @click.native="$router.push({path:'employee'})">常规任务</MenuItem>
-                              <MenuItem name="2-2">专项任务</MenuItem>
-                              <MenuItem name="2-3">通用任务</MenuItem>
-                              <MenuItem name="2-4">特性任务</MenuItem>
+                              <MenuItem v-for="(item ,index) in TaskList" :key="index" :name="item.name" @click.native="transtoTask(item)">{{item.label}}</MenuItem>
                           </Submenu>
                           <Submenu name="3">
                               <template slot="title">
@@ -92,7 +89,29 @@ export default{
     return {
       userChoice: false,
       nav: [],
-      formData: null
+      formData: null,
+      TaskList: [
+        {
+          label: '常规任务',
+          name: '2-1',
+          type: '1'
+        },
+        {
+          label: '专项任务',
+          name: '2-2',
+          type: '2'
+        },
+        {
+          label: '通用任务',
+          name: '2-3',
+          type: '3'
+        },
+        {
+          label: '特性任务',
+          name: '2-4',
+          type: '4'
+        }
+      ]
     }
   },
   watch: {
@@ -136,6 +155,15 @@ export default{
           })
         }
       })
+    },
+    transtoTask (item) {
+      console.log(item)
+      console.log(this.$route)
+      if (this.$route.path !== '/Task') {
+        this.$router.push({path: '/Task', meta: {label: item.label}, query: {type: item.type, label: item.label}})
+      } else if (this.$route.query.type !== item.type) {
+        this.$router.push({path: '/Task', meta: {label: item.label}, query: {type: item.type, label: item.label}})
+      }
     }
   },
   computed: {
