@@ -158,7 +158,7 @@ export default{
           this.formData.taskType = parseInt(this.formData.taskType)
           increaseTask(this.formData).then(res => {
             this.$Message.success({
-              content: '更新成功'
+              content: '添加成功'
             })
             this.getData()
           })

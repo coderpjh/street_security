@@ -168,7 +168,8 @@ export default{
   },
   computed: {
     userName () {
-      return this.$store.state.userName
+      return sessionStorage.getItem('userName')
+      // return this.$store.state.userName
     }
   },
   mounted () {

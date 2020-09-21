@@ -119,7 +119,8 @@ export default {
             handlelogin(this.loginData).then(res => {
               console.log(res)
               if (res.data.data) {
-                this.$store.commit('setUserName', this.loginData.userName)
+                sessionStorage.setItem('userName', this.loginData.userName)
+                // this.$store.commit('setUserName', this.loginData.userName)
                 this.$router.push({path: '/home'})
               } else {
                 this.$Message.error('账号密码输入有误！')
