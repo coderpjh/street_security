@@ -19,3 +19,8 @@ export const updateTask = data => {
 export const increaseTask = data => {
   return fetch('post', '/task/task/add', data)
 }
+
+/* 任务审核 */
+export const auditTask = data => {
+  return fetch('post', '/task/task/verify', data)
+}
