@@ -106,6 +106,8 @@ public class TaskController {
     public R<Boolean> verify(@RequestBody @Validated TaskVerifyDto taskVerifyDto){
         Task task = taskService.getById(taskVerifyDto.getId());
         task.setTaskStatus(taskVerifyDto.getTaskStatus());
+        BeanUtils.copyProperties(taskVerifyDto, task);
+        task.setTaskStatus(1);
         taskService.updateById(task);
         return R.ok(Boolean.TRUE);
     }
