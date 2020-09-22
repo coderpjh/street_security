@@ -174,7 +174,7 @@ export default{
         onOk: () => {
           updateRisk(this.formData).then(res => {
             this.$Message.success({
-              content: '添加成功'
+              content: '更新成功'
             })
             this.getData()
           })

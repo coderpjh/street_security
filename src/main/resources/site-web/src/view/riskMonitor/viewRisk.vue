@@ -3,7 +3,13 @@
     <div class="title">{{title}}</div>
     <span class="label">&nbsp;风险名称：</span><Input v-model="formData.riskName" placeholder="请输入" style="width: 290px" />
     <span class="label">&nbsp;所属区域：</span><Input v-model="formData.riskScope" placeholder="请输入" style="width: 290px" />
-    <span class="label">&nbsp;风险等级：</span><Input v-model="formData.riskLevel" placeholder="请输入" style="width: 290px" />
+    <span class="label">&nbsp;风险等级：</span><RadioGroup v-model="formData.riskLevel" style="width: 270px;height: 30px;">
+        <Radio :label="1">轻微</Radio>
+        <Radio :label="2">一般</Radio>
+        <Radio :label="3">较重</Radio>
+        <Radio :label="4">严重</Radio>
+    </RadioGroup>
+    <!-- <Input v-model="formData.riskLevel" placeholder="请输入" style="width: 290px" /> -->
     <span class="label">&nbsp;风险类型：</span><Input v-model="formData.riskType" placeholder="请输入" style="width: 290px" />
     <span class="label">&nbsp;上报部门：</span><Input v-model="formData.reportDepartment" placeholder="请输入" style="width: 290px" />
     <span class="label">&nbsp;&nbsp;&nbsp;&nbsp;经&nbsp;度：</span><Input v-model="formData.longitude" placeholder="请输入" style="width: 290px" />

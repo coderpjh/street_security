@@ -1,5 +1,5 @@
 <template>
-  <div class="expertContent">
+  <div class="taskContent">
     <div class="Tabletitle">{{TaskName}}
     <Button type="primary" ghost  icon="md-add" @click.native="addTask">新增</Button>
     </div>
@@ -125,7 +125,7 @@ export default{
                 h('Button', {
                   props: {
                     type: 'primary',
-                    size: 'small',
+                    size: 'small'
                   },
                   style: {
                     marginRight: '5px'
@@ -293,19 +293,24 @@ export default{
       let result = ''
       this.$Modal.confirm({
         render: (h) => {
-          return h('Input', {
-            props: {
-              autofocus: true,
-              placeholder: '请输入审核信息'
-            },
-            on: {
-              input: (val) => {
-                result = val
+          return h('div', [
+            h('div', {
+              class: 'auditTitle'
+            }, '任务审核'),
+            h('Input', {
+              props: {
+                autofocus: true,
+                placeholder: '请输入审核信息'
+              },
+              on: {
+                input: (val) => {
+                  result = val
+                }
               }
-            }
-          })
+            })
+          ])
         },
-        title: '任务审核',
+        // title: '任务审核',
         okText: '审核',
         onOk: () => {
           params.row.verifyResult = result
@@ -329,4 +334,11 @@ export default{
 
 <style lang="less">
   @import "./Task.less";
+
+  .auditTitle{
+      font-size: 24px;
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 10px;
+  }
 </style>

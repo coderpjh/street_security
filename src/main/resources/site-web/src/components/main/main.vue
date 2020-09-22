@@ -8,7 +8,7 @@
                           <MenuItem name="1" class='welcome'>
                               欢迎您 {{userName}}
                           </MenuItem>
-                          <MenuItem name="4" style="text-align: center;width: 100px;" >
+                          <MenuItem name="4" style="text-align: left;width: 90px;" >
                               <Dropdown>
                                       <a href="javascript:void(0)">
                                           <Avatar style="background-color: #87d068" icon="ios-person"/>
