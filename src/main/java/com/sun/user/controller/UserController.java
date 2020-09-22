@@ -1,9 +1,11 @@
 package com.sun.user.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.sun.user.dto.UserAddDto;
 import com.sun.user.dto.UserLoginDto;
+import com.sun.user.dto.UserUpdateDto;
 import com.sun.user.entity.User;
 import com.sun.user.service.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -65,16 +67,22 @@ public class UserController {
     /**
      * 用户信息修改
      *
-     * @param userAddDto 用户信息更新对象
+     * @param userUpdateDto 用户信息更新对象
      * @return
      */
     @PostMapping("/update")
     @ApiOperation(value = "更新用户信息", notes = "更新用户信息")
-    public R<Boolean> update(@RequestBody @Validated UserAddDto userAddDto){
-        User user = userService.getById(userAddDto.getId());
-        BeanUtils.copyProperties(userAddDto, user);
+    public R<Boolean> update(@RequestBody @Validated UserUpdateDto userUpdateDto) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(User::getUserName, userUpdateDto.getUserName());
+        User user = userService.getOne(queryWrapper);
+        if (user.getPassword().equals(userUpdateDto.getOldPwd())){
+            user.setPassword(userUpdateDto.getNewPwd());
+        }else {
+            return R.ok(false);
+        }
         userService.updateById(user);
-        return R.ok(Boolean.TRUE);
+        return R.ok(true);
     }
 }
 
