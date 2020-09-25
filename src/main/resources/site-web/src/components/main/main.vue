@@ -14,7 +14,7 @@
                                           <Avatar style="background-color: #87d068" icon="ios-person"/>
                                       </a>
                                       <DropdownMenu slot="list">
-                                          <DropdownItem>修改信息</DropdownItem>
+                                          <DropdownItem @click.native="openInfo">修改信息</DropdownItem>
                                           <DropdownItem @click.native="toOther('/')">退出登录</DropdownItem>
                                       </DropdownMenu>
                                   </Dropdown>
@@ -52,7 +52,7 @@
                                   <Icon type="ios-person" />
                                   安全风险监管
                               </template>
-                              <MenuItem name="4-1"  @click.native="toOther('/riskMonitor')">风险图表</MenuItem>
+                              <MenuItem name="4-1"  @click.native="toOther('/riskMonitor')">风险列表</MenuItem>
                               <MenuItem name="4-2"  @click.native="toOther('/riskMap')">风险地图</MenuItem>
                           </Submenu>
                           <MenuItem name="5">
@@ -71,6 +71,20 @@
                       </Breadcrumb>
                       <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
                           <router-view/>
+                          <Modal
+                                  v-model="userModal"
+                                  title="用户信息修改"
+                                  :closable="false"
+                                  :width="416"
+                                  :footer-hide='true'
+                                  :transfer="false"
+                                  class-name="userChange">
+                                  <change-userinfo :changeData="changeData"></change-userinfo>
+                                  <div class="userfooter">
+                                    <div class="cancel" @click="closeInfo">取消</div>
+                                    <Button type='info'@click.native="changeUserinfo">修改</Button>
+                                  </div>
+                              </Modal>
                       </Content>
                   </Layout>
               </Layout>
@@ -80,16 +94,24 @@
 
 <script>
 import viewRisk from '../../view/riskMonitor/viewRisk.vue'
+import changeUserinfo from '../../view/login/changeUserinfo.vue'
 
 import {addRisk} from '../../axios/riskMonitor.js'
+import {changeUser} from '../../axios/user.js'
 
 export default{
   name: 'main',
+  components: {
+    changeUserinfo,
+    viewRisk
+  },
   data () {
     return {
       userChoice: false,
       nav: [],
       formData: null,
+      changeData: {},
+      userModal: false,
       TaskList: [
         {
           label: '常规任务',
@@ -124,8 +146,8 @@ export default{
     }
   },
   methods: {
-    test () {
-      alert('测试哈')
+    closeInfo () {
+      this.userModal = false
     },
     toOther (path) {
       this.$router.push({path: path})
@@ -157,19 +179,39 @@ export default{
       })
     },
     transtoTask (item) {
-      console.log(item)
-      console.log(this.$route)
       if (this.$route.path !== '/Task') {
         this.$router.push({path: '/Task', meta: {label: item.label}, query: {type: item.type, label: item.label}})
       } else if (this.$route.query.type !== item.type) {
         this.$router.push({path: '/Task', meta: {label: item.label}, query: {type: item.type, label: item.label}})
       }
+    },
+    openInfo () {
+      this.changeData = {}
+      this.changeData['userName'] = sessionStorage.getItem('userName')
+      this.userModal = true
+    },
+    changeUserinfo () {
+      console.log(this.changeData)
+      if (!this.changeData.oldPwd || !this.changeData.newPwd || !this.changeData.confirmPwd) {
+        this.$Message.error('请输入完整信息！')
+        return
+      }
+      if (this.changeData.newPwd !== this.changeData.confirmPwd) {
+        this.$Message.error('两次密码输入不一致！')
+        return
+      }
+      changeUser(this.changeData).then(res => {
+        console.log(res)
+        this.$Message.success({
+          content: '修改成功'
+        })
+        this.userModal = false
+      })
     }
   },
   computed: {
     userName () {
       return sessionStorage.getItem('userName')
-      // return this.$store.state.userName
     }
   },
   mounted () {

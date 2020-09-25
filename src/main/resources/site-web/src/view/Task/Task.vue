@@ -316,6 +316,9 @@ export default{
           params.row.verifyResult = result
           params.row.taskVerify = sessionStorage.getItem('userName')
           auditTask(params.row).then(res => {
+            this.$Message.success({
+              content: '审核成功'
+            })
             this.getData()
           }).catch(() => {
             this.$Message.error({
